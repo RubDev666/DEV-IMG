@@ -102,7 +102,7 @@ async function getImages() {
         window.scrollTo({
             top: mainCont.clientHeight,
             left: 0,
-            //behavior: 'smooth',
+            behavior: 'smooth',
         });
 
         showResults();
@@ -233,24 +233,32 @@ window.addEventListener('resize', () => {
         numColumns = 1;
 
         showResults();
+
+        galleryContainer.classList.remove('hidden');
     }
 
     if ((window.innerWidth >= 640 && innerWidth < 1024) && numColumns !== 2) {
         numColumns = 2;
 
         showResults();
+
+        galleryContainer.classList.remove('hidden');
     }
 
     if ((window.innerWidth >= 1024 && innerWidth < 1440) && numColumns !== 3) {
         numColumns = 3;
 
         showResults();
+
+        galleryContainer.classList.remove('hidden');
     }
 
     if ((window.innerWidth > 1440) && numColumns !== 4) {
         numColumns = 4;
 
         showResults();
+
+        galleryContainer.classList.remove('hidden');
     }
 })
 
