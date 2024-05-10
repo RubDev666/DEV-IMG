@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Thousands of free images that you can use in your web projects">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet" href="./src/css/tailwind.css">
+    <link rel="stylesheet" href="./src/css/globals.css">
+    <title>Dev-Img</title>
+</head>
+
+<body class="bg-first">
+    <header class="w-full sticky top-0 z-[900]">
+        <div class="bg-second w-full py-3 px-7 flex items-center justify-start gap-4">
+            <span class="m-0">Dev&lt;img/&gt;</span>
+
+            <button id="btn-mobile-search" class="cursor-pointer flex items-center justify-center bg-first hover:bg-third rounded-full p-2 transition-colors duration-200 min-[480px]:hidden">
+                <span class="material-symbols-outlined text-fourth font-bold">
+                    search
+                </span>
+            </button>
+    
+            <div id="input-header-container"
+                class="bg-second px-7 h-full flex items-center justify-between absolute w-full gap-5 left-0 min-[480px]:relative overflow-hidden min-[480px]:h-[40px] sm:w-1/2">
+                <form id="form-header" class="w-full bg-white flex rounded-full items-center justify-center px-5 py-1 min-[480px]:absolute left-0">
+                    <button data-set="header" type="submit" class="mr-2 cursor-pointer flex items-center justify-center">
+                        <span id="icono-header" class="material-symbols-outlined text-logo font-semibold">
+                            search
+                        </span>
+                    </button>
+            
+                    <input type="text" class="outline-none w-full p-1" placeholder="Enter a word" id="input-header">
+                </form>
+            
+                <button id="btn-mobile-close"
+                    class="min-[480px]:hidden cursor-pointer flex items-center justify-center bg-first hover:bg-third rounded-full p-2 transition-colors duration-200">
+                    <span class="material-symbols-outlined text-fourth font-bold">
+                        close
+                    </span>
+                </button>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <main class="w-full flex items-center justify-center flex-col text-center px-7 py-14 lg:py-20 bg-no-repeat bg-center bg-cover">
+        <h1 class="text-white mb-9 text-2xl lg:text-3xl font-bold">Incredible free images to download.</h1>
+
+        <form id="form-main" class="buscador sm:max-w-lg lg:max-w-3xl mx-auto">
+            <label for="input-main" class="text-white font-semibold lg:text-xl">Feel free to develop. We offer you free images that
+                you can use in your projects.</label>
+
+            <div class="flex bg-white rounded-full items-center justify-center px-5 py-1 mt-4 mb-4">
+                <button data-set="main" type="submit" class="mr-2 cursor-pointer flex items-center justify-center">
+                    <span class="material-symbols-outlined text-logo font-bold">
+                        search
+                    </span>
+                </button>
+
+                <input type="text" class="bg-white outline-none w-full p-1" placeholder="Enter a word" id="input-main">
+            </div>
+
+            <input data-set="main" type="submit" value="search images"
+                class="bg-logo uppercase text-white rounded-3xl py-1 px-4 tracking-widest logo-font text-2xl cursor-pointer">
+        </form>
+    </main>
+
+    <section id="search-title" class="py-10 lg:py-14 px-6 overflow-hidden relative mb-8 bg-no-repeat">
+        <h2 class="font-bold m-0 text-2xl leading-tight sm:text-3xl text-fourth text-center">Do a search to show results</h2>
+    </section>
+
+    <section id="results-container" class="hidden w-full mb-4">
+        <h3 class="text-fourth ml-7 mb-4 text-xl lg:text-2xl font-medium"></h3>
+
+        <div id="gallery-container" class="py-2 px-7" data-set="flex flex-row gap-4 py-2 px-7 justify-between">
+
+        </div>
+    </section>
+
+    <section id="pagination" class="w-full mb-4 hidden items-center justify-between py-4 px-7 font-medium">
+        <p class="text-fourth lg:text-xl total-results"></p>
+
+        <div class="buttons-status-page hidden lg:block">
+            <button class="hidden logo-font text-lg lg:text-2xl text-white bg-logo rounded-3xl py-1 px-4 uppercase tracking-widest">Next page</button>
+
+            <p class="logo-font text-white uppercase tracking-widest text-lg lg:text-2xl hidden">No more images</p>
+        </div>
+
+        <div class="pagination-controls flex items-center justify-between lg:gap-2">
+            <button id="prev" class="cursor-pointer transition-colors duration-300 ease-in-out hover:bg-third flex items-center justify-center rounded-full p-1">
+                <span class="material-symbols-outlined text-fourth lg:text-[30px]">
+                    chevron_left
+                    </span>
+            </button>
+
+            <form id="number-page" class="pages-container flex mx-2 font-medium lg:text-lg">
+                <input type="number" id="number-input" value="1" class="w-7 mr-3 text-center outline-none">
+
+                <p class="text-fourth">/13</p>
+            </form>
+
+            <button id="next" class="cursor-pointer transition-colors duration-300 ease-in-out hover:bg-third flex items-center justify-center rounded-full p-1">
+                <span class="material-symbols-outlined text-fourth lg:text-[30px]">
+                    chevron_right
+                    </span>
+            </button>
+        </div>
+    </section>
+
+    <footer class="w-full no-results">
+        <div class="w-full py-2 px-7 mb-5">
+            <h4 class="text-fourth font-bold mb-2">Free elements that you can use wherever you want.</h4>
+
+            <p class="text-third text-sm">Website created with the <span class="text-fourth font-medium">Pixabay</span> API for practical purposes. Visit the official <a href="https://pixabay.com" target="_blank" class="text-fourth font-medium hover:text-logo transition-colors duration-200">Pixabay</a> site for more
+                images and multimedia elements.</p>
+        </div>
+
+        <p class="bg-third text-center text-first p-3 font-semibold">Created by © RubDeveloper 2024</p>
+    </footer>
+
+    <script src="./src/ts/domEvents.ts" type="module"></script>
+    <script src="./src/ts/getImages.ts" type="module"></script>
+</body>
+
+</html>

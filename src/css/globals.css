@@ -1,0 +1,170 @@
+@import url('https://fonts.googleapis.com/css2?family=Jersey+20&display=swap');
+
+:root {
+    --logo-color: #dd1658;
+    --logo-font: "Jersey 20", sans-serif;
+    --thirth-color: #535C91;
+}
+
+*::selection {
+    background-color: var(--logo-color);
+}
+
+body {
+    min-height: 100vh;
+    position: relative;
+}
+
+.logo-font {
+    font-family: var(--logo-font);
+}
+
+.search-title {
+    color: var(--logo-color);
+    letter-spacing: 6px;
+    font-size: 20px;
+}
+
+header {
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+
+    span {
+        color: var(--logo-color);
+        font-family: var(--logo-font);
+        font-weight: 400;
+        font-size: 30px;
+        text-transform: uppercase;
+    }
+
+    #input-header-container {
+        top: -100%;
+        transition: top .3s ease-in-out;
+    }
+}
+
+main {
+    background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3)), url('/images/bg-hero-640.jpg');
+}
+
+#search-title {
+    background-position: right;
+    background-size: 60%;
+    object-fit: cover;
+}
+
+#gallery-container {
+    columns: 1 auto;
+    column-gap: 1.5rem;
+}
+
+.img-container {
+    background-color: var(--thirth-color);
+}
+
+.icon-download {
+    margin-left: 10px;
+}
+
+.overlay-content {
+    position: absolute;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: all .3s ease-in-out;
+
+    .overlay-bottom {
+        position: absolute;
+        bottom: 0;
+        background: linear-gradient(180deg, rgb(7, 15, 43, .2) 1%, rgb(7, 15, 43, 1));
+        width: 100%;
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-end;
+        flex-direction: column;
+        padding-bottom: 10%;
+
+        .btns-container {
+            position: absolute;
+            bottom: -100%;
+            opacity: 0;
+            transition: all .3s ease-in-out;
+
+            a {
+                background: rgba(7, 15, 43, .7);
+                padding: 4px 8px;
+            }
+        }
+    }
+}
+
+.img-container:hover .overlay-content {
+    opacity: 1;
+}
+
+.img-container:hover .btns-container {
+    bottom: 10%;
+    opacity: 1;
+}
+
+/*======== remove buttons from input number =====*/
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+@media screen and (min-width: 468px) {
+
+    /*footer class*/
+    .no-results {
+        position: absolute;
+        bottom: 0;
+    }
+}
+
+@media screen and (min-width: 480px) {
+    #form-header {
+        top: -100%;
+        opacity: 0;
+        transition: opacity .3s ease-in-out;
+    }
+}
+
+@media screen and (min-width: 640px) {
+    main {
+        background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3)), url('/images/bg-hero-medium.jpg');
+    }
+}
+
+@media screen and (min-width: 768px) {
+    #gallery-container {
+        columns: 2 auto;
+    }
+}
+
+@media screen and (min-width: 1024px) {
+    .search-title {
+        letter-spacing: 13px;
+        font-size: 30px;
+    }
+
+    #gallery-container {
+        columns: 3 auto;
+    }
+}
+
+@media screen and (min-width: 1280px) {
+    main {
+        background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3)), url('/images/bg-hero-full.jpg');
+    }
+
+    #gallery-container {
+        columns: 4 auto;
+    }
+}
