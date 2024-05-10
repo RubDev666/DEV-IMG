@@ -102,7 +102,7 @@ async function getImages() {
         window.scrollTo({
             top: mainCont.clientHeight,
             left: 0,
-            behavior: 'smooth',
+            //behavior: 'smooth',
         });
 
         showResults();
