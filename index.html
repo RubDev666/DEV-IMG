@@ -6,42 +6,33 @@
     <link rel="icon" type="image/svg+xml" href="/vite.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Thousands of free images that you can use in your web projects">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="./src/css/tailwind.css">
     <link rel="stylesheet" href="./src/css/globals.css">
     <title>Dev-Img</title>
 </head>
 
-<body class="bg-first">
+<body class="bg-first relative min-h-screen">
     <header class="w-full sticky top-0 z-[900]">
         <div class="bg-second w-full py-3 px-7 flex items-center justify-start gap-4">
-            <span class="m-0">Dev&lt;img/&gt;</span>
+            <span class="m-0 text-logo font-normal uppercase">Dev&lt;img/&gt;</span>
 
             <button id="btn-mobile-search" class="cursor-pointer flex items-center justify-center bg-first hover:bg-third rounded-full p-2 transition-colors duration-200 min-[480px]:hidden">
-                <span class="material-symbols-outlined text-fourth font-bold">
-                    search
-                </span>
+                <span class="material-symbols-outlined text-fourth font-bold">search</span>
             </button>
     
-            <div id="input-header-container"
-                class="bg-second px-7 h-full flex items-center justify-between absolute w-full gap-5 left-0 min-[480px]:relative overflow-hidden min-[480px]:h-[40px] sm:w-1/2">
+            <div id="input-header-container" class="bg-second px-7 h-full flex items-center justify-between absolute w-full gap-5 left-0 min-[480px]:relative overflow-hidden min-[480px]:h-[40px] sm:w-1/2">
                 <form id="form-header" class="w-full bg-white flex rounded-full items-center justify-center px-5 py-1 min-[480px]:absolute left-0">
                     <button data-set="header" type="submit" class="mr-2 cursor-pointer flex items-center justify-center">
-                        <span id="icono-header" class="material-symbols-outlined text-logo font-semibold">
-                            search
-                        </span>
+                        <span id="icono-header" class="material-symbols-outlined text-logo font-semibold">search</span>
                     </button>
             
                     <input type="text" class="outline-none w-full p-1" placeholder="Enter a word" id="input-header">
                 </form>
             
-                <button id="btn-mobile-close"
-                    class="min-[480px]:hidden cursor-pointer flex items-center justify-center bg-first hover:bg-third rounded-full p-2 transition-colors duration-200">
-                    <span class="material-symbols-outlined text-fourth font-bold">
-                        close
-                    </span>
-                </button>
+                <button id="btn-mobile-close" class="min-[480px]:hidden cursor-pointer flex items-center justify-center bg-first hover:bg-third rounded-full p-2 transition-colors duration-200">
+                    <span class="material-symbols-outlined text-fourth font-bold">close</span>
                 </button>
             </div>
         </div>
@@ -56,16 +47,13 @@
 
             <div class="flex bg-white rounded-full items-center justify-center px-5 py-1 mt-4 mb-4">
                 <button data-set="main" type="submit" class="mr-2 cursor-pointer flex items-center justify-center">
-                    <span class="material-symbols-outlined text-logo font-bold">
-                        search
-                    </span>
+                    <span class="material-symbols-outlined text-logo font-bold">search</span>
                 </button>
 
                 <input type="text" class="bg-white outline-none w-full p-1" placeholder="Enter a word" id="input-main">
             </div>
 
-            <input data-set="main" type="submit" value="search images"
-                class="bg-logo uppercase text-white rounded-3xl py-1 px-4 tracking-widest logo-font text-2xl cursor-pointer">
+            <input data-set="main" type="submit" value="search images" class="bg-logo uppercase text-white rounded-3xl py-1 px-4 tracking-widest logo-font text-2xl cursor-pointer">
         </form>
     </main>
 
@@ -76,8 +64,11 @@
     <section id="results-container" class="hidden w-full mb-4">
         <h3 class="text-fourth ml-7 mb-4 text-xl lg:text-2xl font-medium"></h3>
 
-        <div id="gallery-container" class="py-2 px-7" data-set="flex flex-row gap-4 py-2 px-7 justify-between">
-
+        <div id="gallery" data-set="py-2 px-7" class="flex flex-row gap-4 py-2 px-7 justify-between">
+            <div class="column-1"></div>
+            <div class="column-2"></div>
+            <div class="column-3"></div>
+            <div class="column-4"></div>
         </div>
     </section>
 
@@ -92,9 +83,7 @@
 
         <div class="pagination-controls flex items-center justify-between lg:gap-2">
             <button id="prev" class="cursor-pointer transition-colors duration-300 ease-in-out hover:bg-third flex items-center justify-center rounded-full p-1">
-                <span class="material-symbols-outlined text-fourth lg:text-[30px]">
-                    chevron_left
-                    </span>
+                <span class="material-symbols-outlined text-fourth lg:text-[30px]">chevron_left</span>
             </button>
 
             <form id="number-page" class="pages-container flex mx-2 font-medium lg:text-lg">
@@ -104,9 +93,7 @@
             </form>
 
             <button id="next" class="cursor-pointer transition-colors duration-300 ease-in-out hover:bg-third flex items-center justify-center rounded-full p-1">
-                <span class="material-symbols-outlined text-fourth lg:text-[30px]">
-                    chevron_right
-                    </span>
+                <span class="material-symbols-outlined text-fourth lg:text-[30px]">chevron_right</span>
             </button>
         </div>
     </section>
@@ -123,7 +110,6 @@
     </footer>
 
     <script src="./src/ts/domEvents.ts" type="module"></script>
-    <script src="./src/ts/getImages.ts" type="module"></script>
 </body>
 
 </html>

@@ -1,52 +1,40 @@
-import AOS from 'aos';
-import 'aos/dist/aos.css'; 
+import {
+    mainCont,
+    searchTitleContainer,
+    searchTitle,
+    resultsContainer,
+    titleResults,
+    galleryContainer,
+    column1,
+    column2,
+    column3,
+    column4,
+    paginationCont,
+    numberInput,
+    totalPagesP,
+    nextBtnMain,
+    noMore,
+    totalResultsP,
+    footerCont
+} from './querySelectors.js';
 
-const searchTitleContainer = document.querySelector('#search-title') as HTMLElement;
-const searchTitle = document.querySelector('#search-title H2') as HTMLHeadingElement;
-
-const resultsContainer = document.querySelector('#results-container') as HTMLElement;
-const titleResults = document.querySelector('#results-container H3') as HTMLHeadingElement;
-
-const mainCont = document.querySelector('MAIN') as HTMLElement;
-/*
-const column1 = document.querySelector('.column-1') as HTMLDivElement;
-const column2 = document.querySelector('.column-2') as HTMLDivElement;
-const column3 = document.querySelector('.column-3') as HTMLDivElement;
-const column4 = document.querySelector('.column-4') as HTMLDivElement;*/
-const galleryContainer = document.querySelector('#gallery-container') as HTMLDivElement;
-
-const footerCont = document.querySelector('FOOTER') as HTMLElement;
-
-const paginationCont = document.querySelector('#pagination') as HTMLElement;
-
-const numberInput = document.querySelector('#number-input') as HTMLInputElement;
-
-const totalPagesP =  document.querySelector('#number-page P') as HTMLElement;
-
-const nextBtn = document.querySelector('#next') as HTMLButtonElement;
-const prevBtn = document.querySelector('#prev') as HTMLButtonElement;
-
-const nextMain = document.querySelector('.buttons-status-page BUTTON') as HTMLButtonElement;
-const noMore = document.querySelector('.buttons-status-page P') as HTMLElement;
-
-const totalResultsP = document.querySelector('#pagination .total-results') as HTMLElement;
-
+//========================= GLOBAL VARIABLES ===================
 let search: string = '';
-const registrosPorPagina: number = 40;
+const resultsPerPage: number = 40;
 let totalPages: number = 1;
 let totalResults: number = 0;
 let currentPage: number = 1;
 let results: any = [];
-let numColumns: number = 1;
-
+let columns: number = 1;
 const firstColor = '7, 15, 43'; //rgb(7, 15, 43) = #070F2B;
 
-export function validarFormulario(event: SubmitEvent) {
-    event.preventDefault();
+//==================================== FORM FUNCTIONS ===============
+export function validateForm(e: SubmitEvent) {
+    e.preventDefault();
 
-    if (!event.target) return;
+    if (!e.target) return;
 
-    const { submitter } = event as SubmitEvent;
+    const { submitter } = e as SubmitEvent; //current button that executes the submit
     if (!submitter) return;
 
     const currentInput = document.querySelector('#input-' + submitter.dataset.set) as HTMLInputElement;
@@ -62,12 +50,12 @@ export function validarFormulario(event: SubmitEvent) {
     currentInput.value = '';
 }
 
-export function validarNumeroPagina(event: SubmitEvent) {
-    event.preventDefault();
+export function validarNumeroPagina(e: SubmitEvent) {
+    e.preventDefault();
 
     const value: number = parseInt(numberInput.value);
 
-    if(value < 1 || value > totalPages || value === currentPage || !value) return;
+    if (value < 1 || value > totalPages || value === currentPage || !value) return;
 
     currentPage = value;
 
@@ -76,7 +64,7 @@ export function validarNumeroPagina(event: SubmitEvent) {
 
 async function getImages() {
     const key = '31346272-ce2caa7e4bb876b68b29e6d55';
-    const url = `https://pixabay.com/api/?key=${key}&q=${search}&per_page=${registrosPorPagina}&page=${currentPage}`;
+    const url = `https://pixabay.com/api/?key=${key}&q=${search}&per_page=${resultsPerPage}&page=${currentPage}`;
 
     try {
         const res = await fetch(url);
@@ -87,9 +75,6 @@ async function getImages() {
         totalResultsP.textContent = `${totalResults.toString()} images found`;
         totalPages = getTotalPages();
         totalPagesP.textContent = '/' + totalPages.toString();
-
-        console.log(totalPages);
-        console.log(resultRes);
 
         if (resultRes.totalHits === 0) {
             notResults();
@@ -115,36 +100,34 @@ async function getImages() {
 
 //=========================================================== DOM ACTIONS ============================= 
 function resultsSucces(resultsArg: any) {
+    const random: number = Math.floor(Math.random() * resultsArg.hits.length);
+
+    searchTitleContainer.style.backgroundImage = `linear-gradient(60deg, rgba(${firstColor}, 1) 20%, rgba(${firstColor}, 0.1)), url('${resultsArg.hits[random].largeImageURL}')`;
+
     searchTitle.textContent = search;
     searchTitle.classList.add('uppercase', 'search-title');
 
-    const ramdom: number = Math.floor(Math.random() * resultsArg.hits.length);
-
-    searchTitleContainer.style.backgroundImage = `linear-gradient(60deg, rgba(${firstColor}, 1) 20%, rgba(${firstColor}, 0.1)), url('${resultsArg.hits[ramdom].largeImageURL}')`;
-
-    resultsContainer.classList.remove('hidden');
-
     titleResults.textContent = `Showing images of "${search}"`;
-
-    footerCont.classList.remove('no-results');
+    resultsContainer.classList.remove('hidden');
 
     paginationCont.classList.replace('hidden', 'flex');
 
-    if(currentPage === totalPages) {
+    if (currentPage === totalPages) {
         noMore.classList.remove('hidden');
-        nextMain.classList.add('hidden');
+        nextBtnMain.classList.add('hidden');
     } else {
         noMore.classList.add('hidden');
-        nextMain.classList.remove('hidden');
+        nextBtnMain.classList.remove('hidden');
     }
+
+    footerCont.classList.remove('no-results');
 }
 
 function notResults() {
-    searchTitle.textContent = `There are no images related to "${search}"`;
-
-    searchTitle.classList.remove('uppercase', 'search-title');
-
     searchTitleContainer.style.backgroundImage = 'none';
+
+    searchTitle.textContent = `There are no images related to "${search}"`;
+    searchTitle.classList.remove('uppercase', 'search-title');
 
     resultsContainer.classList.add('hidden');
 
@@ -154,48 +137,38 @@ function notResults() {
 
     paginationCont.classList.replace('flex', 'hidden');
 
-    nextMain.classList.add('hidden');
+    nextBtnMain.classList.add('hidden');
 }
 
 function showResults() {
     let count: number = 1;
-    //const times = ['400', '500', '450'];
-
-    cleanHtml(galleryContainer);
-    /*cleanHtml(column1);
-    column1.classList.add('hidden');
-
-    cleanHtml(column2);
-    column2.classList.add('hidden');
-
-    cleanHtml(column3);
-    column3.classList.add('hidden');
-
-    cleanHtml(column4);
-    column4.classList.add('hidden');*/
-
-    if (results.length === 0) return;
 
     galleryContainer.classList.add('hidden');
 
-    results.hits.forEach((result: any) => {
-        //const ramdom = Math.floor(Math.random() * times.length);
+    column1.classList.add('hidden');
+    column2.classList.add('hidden');
+    column4.classList.add('hidden');
+    column3.classList.add('hidden');
 
-        //const column = document.querySelector('.column-' + count.toString()) as HTMLDivElement;
-        //column.classList.remove('hidden');
+    cleanHtml(column1);
+    cleanHtml(column2);
+    cleanHtml(column3);
+    cleanHtml(column4);
+
+    if (results.length === 0) return;
+
+    results.hits.forEach((result: any) => {
+        const column = document.querySelector('.column-' + count.toString()) as HTMLDivElement;
+        column.classList.remove('hidden');
 
         const imgCont = document.createElement('DIV') as HTMLDivElement;
-        imgCont.classList.add('w-full', 'mb-4', 'rounded-3xl', 'overflow-hidden', 'relative', 'img-container', 'bg-fourth', 'box');
-        imgCont.setAttribute('data-aos', 'zoom-in-up');
-        imgCont.setAttribute('data-aos-delay', '500');
-        //imgCont.setAttribute('data-aos-duration', '500');
+        imgCont.classList.add('w-full', 'mb-4', 'rounded-3xl', 'overflow-hidden', 'relative', 'img-container', 'bg-fourth', 'scroll');
 
         const overlayContent = document.createElement('DIV') as HTMLDivElement;
         overlayContent.classList.add('overlay-content');
 
         const overlayB = document.createElement('DIV') as HTMLDivElement;
         overlayB.classList.add('overlay-bottom');
-
         overlayB.innerHTML = `
             <div class="btns-container">
                 <a target="_blank" href="${result.largeImageURL}" class="text-fourth text-medium pointer flex items-center justify-center mb-2">Full Size <span class="material-symbols-outlined text-fourth icon-download">download</span></a>
@@ -216,11 +189,9 @@ function showResults() {
 
         imgCont.appendChild(imgEle);
         imgCont.appendChild(overlayContent);
+        column.appendChild(imgCont);
 
-        galleryContainer.appendChild(imgCont);
-        //column.appendChild(imgCont);
-
-        if (count !== numColumns) {
+        if (count !== columns) {
             count = count + 1;
         } else {
             count = 1;
@@ -228,65 +199,56 @@ function showResults() {
     })
 }
 
-window.addEventListener('resize', () => {
-    if (window.innerWidth < 640 && numColumns !== 1) {
-        numColumns = 1;
-
-        showResults();
-
-        galleryContainer.classList.remove('hidden');
-    }
-
-    if ((window.innerWidth >= 640 && innerWidth < 1024) && numColumns !== 2) {
-        numColumns = 2;
-
-        showResults();
-
-        galleryContainer.classList.remove('hidden');
-    }
-
-    if ((window.innerWidth >= 1024 && innerWidth < 1440) && numColumns !== 3) {
-        numColumns = 3;
-
-        showResults();
-
-        galleryContainer.classList.remove('hidden');
-    }
-
-    if ((window.innerWidth > 1440) && numColumns !== 4) {
-        numColumns = 4;
-
-        showResults();
-
-        galleryContainer.classList.remove('hidden');
-    }
-})
-
-//identify screen size when loading site
-function firstLoadScreen() {
-    if (window.innerWidth < 640) numColumns = 1;
-    if (window.innerWidth >= 640 && innerWidth < 1024) numColumns = 2;
-    if (window.innerWidth >= 1024 && innerWidth < 1440) numColumns = 3;
-    if (window.innerWidth > 1440) numColumns = 4;
+export function adjustColumns() {
+    if (window.innerWidth < 640 && columns !== 1) modifyColumns(1);
+    if ((window.innerWidth >= 640 && innerWidth < 1024) && columns !== 2) modifyColumns(2);
+    if ((window.innerWidth >= 1024 && innerWidth < 1440) && columns !== 3) modifyColumns(3);
+    if ((window.innerWidth > 1440) && columns !== 4) modifyColumns(4);
 }
 
-firstLoadScreen();
+function modifyColumns(columnsNumber: number) {
+    columns = columnsNumber;
+
+    showResults();
+
+    galleryContainer.classList.remove('hidden');
+}
+
+//identify screen size when loading site
+export function firstLoadScreen() {
+    if (window.innerWidth < 640) columns = 1;
+    if (window.innerWidth >= 640 && innerWidth < 1024) columns = 2;
+    if (window.innerWidth >= 1024 && innerWidth < 1440) columns = 3;
+    if (window.innerWidth > 1440) columns = 4;
+}
 
 function cleanHtml(selector: HTMLElement) {
-    while (selector.firstChild) {
+    while(selector.firstChild) {
         selector.removeChild(selector.firstChild);
     }
 }
 
+export function scrollImages() {
+    const imgC = document.getElementsByClassName('scroll');
+
+    if (imgC.length > 0) {
+        for (let i = 0; i < imgC.length; i++) {
+            const imgU = imgC[i].getBoundingClientRect();
+
+            if (imgU.top < 500) {
+                imgC[i].classList.add('active');
+            } else {
+                imgC[i].classList.remove('active');
+            }
+        }
+    }
+}
+
 //============================================== PAGINATION ===========
-const getTotalPages = (): number => Math.ceil(totalResults / registrosPorPagina);
+const getTotalPages = (): number => Math.ceil(totalResults / resultsPerPage);
 
-nextBtn.addEventListener('click', nextPage);
-prevBtn.addEventListener('click', prevPage);
-nextMain.addEventListener('click', nextPage);
-
-function nextPage() {
-    if(currentPage === totalPages) return;
+export function nextPage() {
+    if (currentPage === totalPages) return;
 
     currentPage = currentPage + 1;
     numberInput.value = currentPage.toString();
@@ -294,16 +256,11 @@ function nextPage() {
     getImages();
 }
 
-function prevPage() {
-    if(currentPage === 1) return;
+export function prevPage() {
+    if (currentPage === 1) return;
 
     currentPage = currentPage - 1;
     numberInput.value = currentPage.toString();
 
     getImages();
 }
-
-AOS.init({
-    duration: 800,
-    offset:150,
-});
