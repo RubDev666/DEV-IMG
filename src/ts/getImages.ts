@@ -14,8 +14,7 @@ import {
     totalPagesP,
     nextBtnMain,
     noMore,
-    totalResultsP,
-    footerCont
+    totalResultsP
 } from './querySelectors.js';
 
 //========================= GLOBAL VARIABLES ===================
@@ -119,8 +118,6 @@ function resultsSucces(resultsArg: any) {
         noMore.classList.add('hidden');
         nextBtnMain.classList.remove('hidden');
     }
-
-    footerCont.classList.remove('no-results');
 }
 
 function notResults() {
@@ -132,8 +129,6 @@ function notResults() {
     resultsContainer.classList.add('hidden');
 
     titleResults.textContent = '';
-
-    footerCont.classList.add('no-results');
 
     paginationCont.classList.replace('flex', 'hidden');
 

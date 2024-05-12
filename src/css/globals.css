@@ -129,14 +129,6 @@ input[type=number] {
     transform: translateY(0);
 }
 
-@media screen and (min-width: 468px) {
-    /*footer class*/
-    .no-results {
-        position: absolute;
-        bottom: 0;
-    }
-}
-
 @media screen and (min-width: 480px) {
     #form-header {
         top: -100%;

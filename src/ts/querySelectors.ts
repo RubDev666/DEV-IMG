@@ -38,6 +38,3 @@ export const noMore = document.querySelector('.buttons-status-page P') as HTMLEl
 export const totalResultsP = document.querySelector('#pagination .total-results') as HTMLElement;
 
 export const formPage =  document.querySelector('#number-page') as HTMLFormElement;
-
-//=================== FOOTER =======================
-export const footerCont = document.querySelector('FOOTER') as HTMLElement;
