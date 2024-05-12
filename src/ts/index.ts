@@ -5,7 +5,7 @@ import {
     scrollImages,
     nextPage,
     prevPage,
-    adjustColumns 
+    adjustColumns
 } from "./getImages.js";
 
 import {
@@ -21,10 +21,33 @@ import {
 } from './querySelectors.js';
 
 window.addEventListener('DOMContentLoaded', firstLoadScreen);
-window.addEventListener('resize', adjustColumns);
+
+window.addEventListener('resize', () => {
+    adjustColumns();
+
+    if(window.innerWidth < 480) {
+        formHeader.style.top = '0';
+        formHeader.style.opacity = '1';
+
+        return;
+    } else if(window.innerWidth >= 480 && window.scrollY <= 100) {
+        formHeader.style.opacity = '0';
+        formHeader.style.top = '-100%';
+    }
+});
 
 window.addEventListener("scroll", () => {
     scrollImages();
+
+    if(window.innerWidth < 480) {
+        formHeader.style.top = '0';
+        formHeader.style.opacity = '1';
+
+        return;
+    } else if(window.innerWidth >= 480 && window.scrollY <= 100) {
+        formHeader.style.opacity = '0';
+        formHeader.style.top = '-100%';
+    }
 
     if (window.scrollY > 100) {
         formHeader.style.top = '0';
