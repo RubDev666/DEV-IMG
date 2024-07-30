@@ -1,11 +1,9 @@
 import { 
     validateForm, 
     validarNumeroPagina, 
-    firstLoadScreen, 
     scrollImages,
     nextPage,
     prevPage,
-    adjustColumns
 } from "./getImages.js";
 
 import {
@@ -20,11 +18,7 @@ import {
     prevBtn
 } from './querySelectors.js';
 
-window.addEventListener('DOMContentLoaded', firstLoadScreen);
-
 window.addEventListener('resize', () => {
-    adjustColumns();
-
     if(window.innerWidth < 480) {
         formHeader.style.top = '0';
         formHeader.style.opacity = '1';

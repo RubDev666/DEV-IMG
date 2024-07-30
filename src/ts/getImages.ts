@@ -5,10 +5,6 @@ import {
     resultsContainer,
     titleResults,
     galleryContainer,
-    column1,
-    column2,
-    column3,
-    column4,
     paginationCont,
     numberInput,
     totalPagesP,
@@ -91,7 +87,12 @@ async function getImages() {
 
         showResults();
 
-        galleryContainer.classList.remove('hidden');
+        //galleryContainer.classList.remove('hidden');
+
+        setTimeout(() => {
+            galleryContainer.classList.remove('opacity-0');
+            //galleryContainer.classList.replace('opacity-0', 'opacity-100');
+        }, 1000)
     } catch (error) {
         console.log(error);
     }
@@ -138,26 +139,31 @@ function notResults() {
 function showResults() {
     let count: number = 1;
 
-    galleryContainer.classList.add('hidden');
+    console.log('start')
 
-    column1.classList.add('hidden');
-    column2.classList.add('hidden');
-    column4.classList.add('hidden');
-    column3.classList.add('hidden');
+    galleryContainer.classList.add('opacity-0');
+    //galleryContainer.classList.add('hidden');
 
-    cleanHtml(column1);
-    cleanHtml(column2);
-    cleanHtml(column3);
-    cleanHtml(column4);
+    cleanHtml(galleryContainer);
+
+    //column1.classList.add('hidden');
+    //column2.classList.add('hidden');
+    //column4.classList.add('hidden');
+    //column3.classList.add('hidden');
+
+    //cleanHtml(column1);
+    //cleanHtml(column2);
+    //cleanHtml(column3);
+    //cleanHtml(column4);
 
     if (results.length === 0) return;
 
     results.hits.forEach((result: any) => {
-        const column = document.querySelector('.column-' + count.toString()) as HTMLDivElement;
-        column.classList.remove('hidden');
+        //const column = document.querySelector('.column-' + count.toString()) as HTMLDivElement;
+        //column.classList.remove('hidden');
 
         const imgCont = document.createElement('DIV') as HTMLDivElement;
-        imgCont.classList.add('w-full', 'mb-4', 'rounded-3xl', 'overflow-hidden', 'relative', 'img-container', 'bg-fourth', 'scroll');
+        imgCont.classList.add('w-full', 'mb-4', 'rounded-lg', 'overflow-hidden', 'relative', 'img-container', 'bg-fourth', 'scroll');
 
         const overlayContent = document.createElement('DIV') as HTMLDivElement;
         overlayContent.classList.add('overlay-content');
@@ -184,37 +190,22 @@ function showResults() {
 
         imgCont.appendChild(imgEle);
         imgCont.appendChild(overlayContent);
-        column.appendChild(imgCont);
+        //column.appendChild(imgCont);
+
+        galleryContainer.appendChild(imgCont);
 
         if (count !== columns) {
             count = count + 1;
         } else {
             count = 1;
         }
+
+        console.log('loading');
     })
-}
 
-export function adjustColumns() {
-    if (window.innerWidth < 640 && columns !== 1) modifyColumns(1);
-    if ((window.innerWidth >= 640 && innerWidth < 1024) && columns !== 2) modifyColumns(2);
-    if ((window.innerWidth >= 1024 && innerWidth < 1440) && columns !== 3) modifyColumns(3);
-    if ((window.innerWidth > 1440) && columns !== 4) modifyColumns(4);
-}
+    //galleryContainer.classList.remove('hidden');
 
-function modifyColumns(columnsNumber: number) {
-    columns = columnsNumber;
-
-    showResults();
-
-    galleryContainer.classList.remove('hidden');
-}
-
-//identify screen size when loading site
-export function firstLoadScreen() {
-    if (window.innerWidth < 640) columns = 1;
-    if (window.innerWidth >= 640 && innerWidth < 1024) columns = 2;
-    if (window.innerWidth >= 1024 && innerWidth < 1440) columns = 3;
-    if (window.innerWidth > 1440) columns = 4;
+    console.log('finished');
 }
 
 function cleanHtml(selector: HTMLElement) {

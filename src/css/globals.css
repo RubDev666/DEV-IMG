@@ -118,10 +118,13 @@ input[type=number] {
 
 /*============== scroll event =========*/
 .scroll {
-    opacity: 0;
-    transform: translateY(100px);
+    *opacity: 0;
+    *transform: translateY(100px);
 
-    transition: all .5s ease-in-out;
+    opacity: 1;
+    transform: translateY(0);
+
+    *transition: all .5s ease-in-out;
 }
 
 .scroll.active {
