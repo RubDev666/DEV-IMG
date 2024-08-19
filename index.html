@@ -15,7 +15,7 @@
 <body class="bg-first">
     <header class="w-full sticky top-0 z-[900]">
         <div class="bg-second w-full py-3 px-7 flex items-center justify-start gap-4">
-            <span class="m-0 text-logo font-normal uppercase">Dev&lt;img/&gt;</span>
+            <span class="m-0 text-logo font-normal uppercase logo-font">Dev&lt;img/&gt;</span>
 
             <button id="btn-mobile-search" class="cursor-pointer flex items-center justify-center bg-first hover:bg-third rounded-full p-2 transition-colors duration-200 min-[480px]:hidden">
                 <span class="material-symbols-outlined text-fourth font-bold">search</span>
@@ -52,7 +52,7 @@
                 <input type="text" class="bg-white outline-none w-full p-1" placeholder="Enter a word" id="input-main">
             </div>
 
-            <input data-set="main" type="submit" value="search images" class="bg-logo uppercase text-white rounded-3xl py-1 px-4 tracking-widest logo-font text-2xl cursor-pointer">
+            <input data-set="main" type="submit" value="search images" class="btn-main logo-font">
         </form>
     </main>
 
@@ -63,16 +63,14 @@
     <section id="results-container" class="hidden w-full mb-4">
         <h3 class="text-fourth ml-7 mb-4 text-xl lg:text-2xl font-medium"></h3>
 
-        <div id="gallery" data-set="py-2 px-7" class="columns-2 min-[480px]:columns-3 lg:columns-4 xl:columns-5 py-2 px-7">
-            
-        </div>
+        <div id="gallery" data-set="py-2 px-7" class="grid py-2 px-7 min-h-[400px]"></div>
     </section>
 
     <section id="pagination" class="w-full mb-4 hidden items-center justify-between py-4 px-7 font-medium">
         <p class="text-fourth lg:text-xl total-results"></p>
 
         <div class="buttons-status-page hidden lg:block">
-            <button class="hidden logo-font text-lg lg:text-2xl text-white bg-logo rounded-3xl py-1 px-4 uppercase tracking-widest">Next page</button>
+            <button class="hidden logo-font btn-main">Next page</button>
 
             <p class="logo-font text-white uppercase tracking-widest text-lg lg:text-2xl hidden">No more images</p>
         </div>
@@ -86,14 +84,14 @@
                 <input type="number" id="number-input" value="1" class="w-7 mr-3 text-center outline-none">
 
                 <p class="text-fourth">/13</p>
-            </form>
+            </form> 
 
             <button id="next" class="cursor-pointer transition-colors duration-300 ease-in-out hover:bg-third flex items-center justify-center rounded-full p-1">
                 <span class="material-symbols-outlined text-fourth lg:text-[30px]">chevron_right</span>
             </button>
         </div>
     </section>
-
+ 
     <footer class="w-full">
         <div class="w-full py-2 px-7 mb-5">
             <h4 class="text-fourth font-bold mb-2">Free elements that you can use wherever you want.</h4>

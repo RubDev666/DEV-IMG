@@ -19,10 +19,13 @@ export const titleResults = document.querySelector('#results-container H3') as H
 //=========================== GALLERY ==================
 export const galleryContainer = document.querySelector('#gallery') as HTMLDivElement;
 
+/*
 export const column1 = document.querySelector('.column-1') as HTMLDivElement;
 export const column2 = document.querySelector('.column-2') as HTMLDivElement;
 export const column3 = document.querySelector('.column-3') as HTMLDivElement;
 export const column4 = document.querySelector('.column-4') as HTMLDivElement;
+export const column5 = document.querySelector('.column-5') as HTMLDivElement;
+*/
 
 //============================ PAGINATION =====================
 export const paginationCont = document.querySelector('#pagination') as HTMLElement;

@@ -1,11 +1,11 @@
 import { 
     validateForm, 
-    validarNumeroPagina, 
-    scrollImages,
-    nextPage,
-    prevPage,
+    validatePageNumber, 
+    handleScrollImages,
+    getColumns,
+    handlePage
 } from "./getImages.js";
-
+ 
 import {
     formHeaderContainer,
     btnSearch,
@@ -15,10 +15,16 @@ import {
     formPage,
     nextBtn,
     nextBtnMain,
-    prevBtn
+    prevBtn,
 } from './querySelectors.js';
 
+window.addEventListener('DOMContentLoaded', () => getColumns(true));
+
 window.addEventListener('resize', () => {
+    getColumns(false);
+
+    handleScrollImages();
+
     if(window.innerWidth < 480) {
         formHeader.style.top = '0';
         formHeader.style.opacity = '1';
@@ -31,7 +37,7 @@ window.addEventListener('resize', () => {
 });
 
 window.addEventListener("scroll", () => {
-    scrollImages();
+    handleScrollImages();
 
     if(window.innerWidth < 480) {
         formHeader.style.top = '0';
@@ -57,8 +63,8 @@ btnClose.addEventListener('click', () => formHeaderContainer.style.top = '-100%'
 
 formHeader.addEventListener("submit", validateForm);
 formMain.addEventListener("submit", validateForm);
-formPage.addEventListener("submit", validarNumeroPagina);
+formPage.addEventListener("submit", validatePageNumber);
 
-nextBtn.addEventListener('click', nextPage);
-prevBtn.addEventListener('click', prevPage);
-nextBtnMain.addEventListener('click', nextPage);
+nextBtn.addEventListener('click', ()=> handlePage('next'));
+prevBtn.addEventListener('click', ()=> handlePage('prev'));
+nextBtnMain.addEventListener('click', ()=> handlePage('next'));

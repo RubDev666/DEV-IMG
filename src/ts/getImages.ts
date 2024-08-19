@@ -10,18 +10,40 @@ import {
     totalPagesP,
     nextBtnMain,
     noMore,
-    totalResultsP
+    totalResultsP,
+    //column1,
+    //column2,
+    //column3,
+    //column4,
+    //column5
 } from './querySelectors.js';
 
 //========================= GLOBAL VARIABLES ===================
-let search: string = '';
+let columns: number = 0;
+let countColumns: number = 0; //
+const firstNumberRows: number = 2; //number of rows on first load of images
+/*const ALL_COLUMNS: any = [
+    column1,
+    column2,
+    column3,
+    column4,
+    column5
+]*/
+
+const imagesPerScroll = 1;
+
 const resultsPerPage: number = 40;
 let totalPages: number = 1;
-let totalResults: number = 0;
 let currentPage: number = 1;
+
+let search: string = '';
+
+let loadingData = false;
+
+let initialIteration = 0;
+
+let totalResults: number = 0;
 let results: any = [];
-let columns: number = 1;
-const firstColor = '7, 15, 43'; //rgb(7, 15, 43) = #070F2B;
 
 //==================================== FORM FUNCTIONS ===============
 export function validateForm(e: SubmitEvent) {
@@ -39,13 +61,14 @@ export function validateForm(e: SubmitEvent) {
     currentPage = 1;
     numberInput.value = '1';
     search = currentInput.value;
+    initialIteration = 0;
 
-    getImages();
+    fetchImg();
 
     currentInput.value = '';
 }
 
-export function validarNumeroPagina(e: SubmitEvent) {
+export function validatePageNumber(e: SubmitEvent) {
     e.preventDefault();
 
     const value: number = parseInt(numberInput.value);
@@ -53,56 +76,45 @@ export function validarNumeroPagina(e: SubmitEvent) {
     if (value < 1 || value > totalPages || value === currentPage || !value) return;
 
     currentPage = value;
-
-    getImages();
+    initialIteration = 0;
+    
+    fetchImg();
 }
 
-async function getImages() {
+async function fetchImg() {
     const key = '31346272-ce2caa7e4bb876b68b29e6d55';
     const url = `https://pixabay.com/api/?key=${key}&q=${search}&per_page=${resultsPerPage}&page=${currentPage}`;
 
     try {
-        const res = await fetch(url);
-        const resultRes = await res.json();
+        const res = await fetch(url).then(res => res.json());
 
-        results = resultRes;
-        totalResults = resultRes.totalHits;
+        results = res.hits;
+        totalResults = res.totalHits;
         totalResultsP.textContent = `${totalResults.toString()} images found`;
         totalPages = getTotalPages();
         totalPagesP.textContent = '/' + totalPages.toString();
 
-        if (resultRes.totalHits === 0) {
-            notResults();
+        if (res.totalHits === 0) return notResults();
 
-            return;
-        }
+        resultsSucces();
 
-        resultsSucces(resultRes);
+        showFirstImages();
 
         window.scrollTo({
             top: mainCont.clientHeight,
             left: 0,
-            //behavior: 'smooth',
+            behavior: 'smooth',
         });
-
-        showResults();
-
-        //galleryContainer.classList.remove('hidden');
-
-        setTimeout(() => {
-            galleryContainer.classList.remove('opacity-0');
-            //galleryContainer.classList.replace('opacity-0', 'opacity-100');
-        }, 1000)
     } catch (error) {
         console.log(error);
     }
 }
-
+ 
 //=========================================================== DOM ACTIONS ============================= 
-function resultsSucces(resultsArg: any) {
-    const random: number = Math.floor(Math.random() * resultsArg.hits.length);
+function resultsSucces() {
+    const random: number = Math.floor(Math.random() * results.length);
 
-    searchTitleContainer.style.backgroundImage = `linear-gradient(60deg, rgba(${firstColor}, 1) 20%, rgba(${firstColor}, 0.1)), url('${resultsArg.hits[random].largeImageURL}')`;
+    searchTitleContainer.style.backgroundImage = `linear-gradient(60deg, rgba(7, 15, 43, 1) 20%, rgba(7, 15, 43, 0.1)), url('${results[random].largeImageURL}')`;
 
     searchTitle.textContent = search;
     searchTitle.classList.add('uppercase', 'search-title');
@@ -136,117 +148,182 @@ function notResults() {
     nextBtnMain.classList.add('hidden');
 }
 
-function showResults() {
-    let count: number = 1;
+export function showFirstImages() {
+    let countIterator = 0;
 
-    console.log('start')
+    cleanGallery();
 
-    galleryContainer.classList.add('opacity-0');
-    //galleryContainer.classList.add('hidden');
+    loadingData = true;
 
-    cleanHtml(galleryContainer);
+    for(let i = initialIteration; i < results.length; i++) {
+        //show images according to the number of columns on the screen, and then multiply by 2 to fill a little more images.
+        if(countIterator === columns * firstNumberRows) {
+            initialIteration = i;
 
-    //column1.classList.add('hidden');
-    //column2.classList.add('hidden');
-    //column4.classList.add('hidden');
-    //column3.classList.add('hidden');
-
-    //cleanHtml(column1);
-    //cleanHtml(column2);
-    //cleanHtml(column3);
-    //cleanHtml(column4);
-
-    if (results.length === 0) return;
-
-    results.hits.forEach((result: any) => {
-        //const column = document.querySelector('.column-' + count.toString()) as HTMLDivElement;
-        //column.classList.remove('hidden');
-
-        const imgCont = document.createElement('DIV') as HTMLDivElement;
-        imgCont.classList.add('w-full', 'mb-4', 'rounded-lg', 'overflow-hidden', 'relative', 'img-container', 'bg-fourth', 'scroll');
-
-        const overlayContent = document.createElement('DIV') as HTMLDivElement;
-        overlayContent.classList.add('overlay-content');
-
-        const overlayB = document.createElement('DIV') as HTMLDivElement;
-        overlayB.classList.add('overlay-bottom');
-        overlayB.innerHTML = `
-            <div class="btns-container">
-                <a target="_blank" href="${result.largeImageURL}" class="text-fourth text-medium pointer flex items-center justify-center mb-2">Full Size <span class="material-symbols-outlined text-fourth icon-download">download</span></a>
-
-                <a target="_blank" href="${result.webformatURL}" class="text-fourth text-medium pointer flex items-center justify-center mb-2">Medium Size <span class="material-symbols-outlined text-fourth icon-download">download</span></a>
-
-                <a target="_blank" href="${result.previewURL}" class="text-fourth text-medium pointer flex items-center justify-center mb-2">Small Size <span class="material-symbols-outlined text-fourth icon-download">download</span></a>
-            </div>
-        `;
-
-        overlayContent.appendChild(overlayB);
-
-        const imgEle = document.createElement('IMG') as HTMLImageElement;
-        imgEle.src = result.webformatURL;
-        imgEle.loading = 'lazy';
-        imgEle.alt = `img-${search}`;
-        imgEle.classList.add('w-full', 'h-full');
-
-        imgCont.appendChild(imgEle);
-        imgCont.appendChild(overlayContent);
-        //column.appendChild(imgCont);
-
-        galleryContainer.appendChild(imgCont);
-
-        if (count !== columns) {
-            count = count + 1;
+            break;
         } else {
-            count = 1;
+            countIterator++
         }
 
-        console.log('loading');
-    })
+        showImages(i);
+    }
 
-    //galleryContainer.classList.remove('hidden');
+    loadingData = false;
+}
 
-    console.log('finished');
+export function showScrollImages() {
+    let countIterator = 0;
+
+    loadingData = true;
+
+    for(let i = initialIteration; i <= results.length; i++) {
+        if(initialIteration === results.length) {
+            initialIteration = results.length;
+            loadingData = false;
+
+            break;
+        }
+
+        //image limit for each scroll event
+        if(countIterator === imagesPerScroll) {
+            initialIteration = i;
+            loadingData = false;
+
+            break;
+        } else {
+            countIterator++
+        }
+
+        showImages(i);
+    }
+
+    loadingData = false;
+}
+
+export function showImages(i: number) {
+    const result = results[i];
+
+    let column = document.querySelector(`.column-${countColumns + 1}`) as HTMLDivElement;
+
+    if(!column) {
+        column = document.createElement('DIV') as HTMLDivElement;
+        column.classList.add(`column-${countColumns + 1}`);
+    }
+
+    //const column = ALL_COLUMNS[countColumns];
+
+    const imgCont = document.createElement('DIV') as HTMLDivElement;
+    imgCont.classList.add('img-container', 'scroll', `${i < columns * firstNumberRows ? 'active' : undefined}`, 'cursor-pointer');
+
+    const overlayContent = document.createElement('DIV') as HTMLDivElement;
+    overlayContent.classList.add('overlay-content');
+
+    const overlayB = document.createElement('DIV') as HTMLDivElement;
+    overlayB.classList.add('overlay-bottom');
+    /*overlayB.innerHTML = `
+        <div class="btns-container">
+            <a target="_blank" href="${result.largeImageURL}" class="text-fourth text-medium pointer flex items-center justify-center mb-2">Full Size <span class="material-symbols-outlined text-fourth icon-download">download</span></a>
+
+            <a target="_blank" href="${result.webformatURL}" class="text-fourth text-medium pointer flex items-center justify-center mb-2">Medium Size <span class="material-symbols-outlined text-fourth icon-download">download</span></a>
+
+            <a target="_blank" href="${result.previewURL}" class="text-fourth text-medium pointer flex items-center justify-center mb-2">Small Size <span class="material-symbols-outlined text-fourth icon-download">download</span></a>
+        </div>
+    `;*/
+
+    overlayContent.appendChild(overlayB);
+
+    const imgEle = document.createElement('IMG') as HTMLImageElement;
+    imgEle.src = result.webformatURL;
+    imgEle.loading = 'lazy';
+    imgEle.alt = `img-${search}`;
+    imgEle.classList.add('w-full', 'h-full');
+
+    imgCont.appendChild(imgEle);
+    imgCont.appendChild(overlayContent);
+    column.appendChild(imgCont);
+
+    if(galleryContainer.childNodes.length !== columns) galleryContainer.appendChild(column);
+
+    if (countColumns === columns - 1) {
+        countColumns = 0;
+    } else {
+        countColumns++;
+    }
+}
+
+export function getColumns(isFirstLoad: boolean) {
+    const currentWidth = window.innerWidth;
+    const currentColmns = columns;
+
+    if(currentWidth < 768) columns = 3;
+    if(currentWidth >= 768 && currentWidth < 1280) columns = 4;
+    if(currentWidth >= 1280) columns = 5;
+    
+    if(!isFirstLoad && currentColmns !== columns) {
+        initialIteration = 0;
+        countColumns = 0;
+
+        showFirstImages();
+    }
+}
+
+function cleanGallery() {
+    cleanHtml(galleryContainer);
+
+    //ALL_COLUMNS.forEach((e: any) => cleanHtml(e));
+    
+    for(let i = 1; i <= columns; i++) {
+        const column = document.querySelector(`.column-${countColumns + 1}`) as HTMLDivElement;
+
+        if(!column) break;
+
+        cleanHtml(column);
+    }
 }
 
 function cleanHtml(selector: HTMLElement) {
-    while(selector.firstChild) {
+    while (selector.firstChild) {
         selector.removeChild(selector.firstChild);
     }
 }
 
-export function scrollImages() {
+export function handleScrollImages() {
     const imgC = document.getElementsByClassName('scroll');
 
     if (imgC.length > 0) {
         for (let i = 0; i < imgC.length; i++) {
             const imgU = imgC[i].getBoundingClientRect();
 
-            if (imgU.top < 500) {
+            if (imgU.top < 700) {
                 imgC[i].classList.add('active');
             } else {
                 imgC[i].classList.remove('active');
             }
         }
     }
+
+    if(initialIteration !== results.length && !loadingData) {
+        const scrollTop = window.scrollY;
+        const containerHeight = galleryContainer.offsetHeight;
+        const windowHeight = window.innerHeight;
+    
+        if (scrollTop + windowHeight >= containerHeight) showScrollImages();
+    }
 }
 
 //============================================== PAGINATION ===========
-const getTotalPages = (): number => Math.ceil(totalResults / resultsPerPage);
+const getTotalPages = () => Math.ceil(totalResults / resultsPerPage);
 
-export function nextPage() {
-    if (currentPage === totalPages) return;
+export function handlePage(typeChange: 'prev' | 'next') {
+    if(typeChange === 'prev' && currentPage === 1) return;
+    if(typeChange === 'next' && currentPage === totalPages) return;
 
-    currentPage = currentPage + 1;
+    initialIteration = 0;
+
+    if(typeChange === 'prev') currentPage--;
+    if(typeChange === 'next') currentPage++;
+
     numberInput.value = currentPage.toString();
 
-    getImages();
-}
-
-export function prevPage() {
-    if (currentPage === 1) return;
-
-    currentPage = currentPage - 1;
-    numberInput.value = currentPage.toString();
-
-    getImages();
+    fetchImg();
 }

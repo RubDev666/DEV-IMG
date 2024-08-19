@@ -1,3 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .btn-main {
+        @apply bg-logo uppercase text-white rounded-3xl py-1 px-4 tracking-widest text-2xl cursor-pointer
+    }
+}

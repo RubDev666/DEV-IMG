@@ -1,13 +1,21 @@
 @import url('https://fonts.googleapis.com/css2?family=Jersey+20&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
 :root {
     --logo-color: #dd1658;
-    --logo-font: "Jersey 20", sans-serif;
+    --hero-text-color: #fff;
     --thirth-color: #535C91;
+    --logo-font: "Jersey 20", sans-serif;
+    --global-font: "Poppins", sans-serif;
 }
 
 *::selection {
     background-color: var(--logo-color);
+    color: var(--hero-text-color);
+}
+
+* {
+    font-family: var(--global-font);
 }
 
 .logo-font {
@@ -18,7 +26,6 @@ header {
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 
     span {
-        font-family: var(--logo-font);
         font-size: 30px;
     }
 
@@ -37,14 +44,6 @@ main {
     background-size: 60%;
     object-fit: cover;
 }
-
-/*
-Useful properties to create columns without the need for flexbox or grid
-#gallery-container {
-    columns: 1 auto;
-    column-gap: 1.5rem;
-}
-*/
 
 /*======== remove buttons from input number =====*/
 input[type=number]::-webkit-inner-spin-button,
@@ -66,7 +65,14 @@ input[type=number] {
 }
 
 .img-container {
+    width: 100%;
+    margin-bottom: 10px;
     background-color: var(--thirth-color);
+}
+
+#gallery {
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
 }
 
 .overlay-content {
@@ -88,22 +94,6 @@ input[type=number] {
         justify-content: flex-end;
         flex-direction: column;
         padding-bottom: 10%;
-
-        .btns-container {
-            position: absolute;
-            bottom: -100%;
-            opacity: 0;
-            transition: all .3s ease-in-out;
-
-            a {
-                background: rgba(7, 15, 43, .7);
-                padding: 4px 8px;
-            }
-
-            .icon-download {
-                margin-left: 10px;
-            }
-        }
     }
 }
 
@@ -111,20 +101,11 @@ input[type=number] {
     opacity: 1;
 }
 
-.img-container:hover .btns-container {
-    bottom: 10%;
-    opacity: 1;
-}
-
-/*============== scroll event =========*/
+/*========================================== SCROLL EVENT =========*/
 .scroll {
-    *opacity: 0;
-    *transform: translateY(100px);
-
-    opacity: 1;
-    transform: translateY(0);
-
-    *transition: all .5s ease-in-out;
+    opacity: 0;
+    transform: translateY(100px);
+    transition: all .8s ease-in-out;
 }
 
 .scroll.active {
@@ -132,6 +113,7 @@ input[type=number] {
     transform: translateY(0);
 }
 
+/*================================================ RESPONSIVE ========*/
 @media screen and (min-width: 480px) {
     #form-header {
         top: -100%;
@@ -146,6 +128,12 @@ input[type=number] {
     }
 }
 
+@media screen and (min-width: 768px) {
+    #gallery {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
 @media screen and (min-width: 1024px) {
     .search-title {
         letter-spacing: 13px;
@@ -156,5 +144,9 @@ input[type=number] {
 @media screen and (min-width: 1280px) {
     main {
         background-image: linear-gradient(0deg, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.3)), url('/images/bg-hero-full.jpg');
+    }
+
+    #gallery {
+        grid-template-columns: repeat(5, 1fr);
     }
 }
