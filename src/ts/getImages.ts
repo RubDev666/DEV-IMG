@@ -11,24 +11,17 @@ import {
     nextBtnMain,
     noMore,
     totalResultsP,
-    //column1,
-    //column2,
-    //column3,
-    //column4,
-    //column5
+    body,
+    modalContainer,
+    dropdownTop,
+    imgModal,
+    btnCloseModal
 } from './querySelectors.js';
 
 //========================= GLOBAL VARIABLES ===================
 let columns: number = 0;
 let countColumns: number = 0; //
 const firstNumberRows: number = 2; //number of rows on first load of images
-/*const ALL_COLUMNS: any = [
-    column1,
-    column2,
-    column3,
-    column4,
-    column5
-]*/
 
 const imagesPerScroll = 1;
 
@@ -215,22 +208,10 @@ export function showImages(i: number) {
     const imgCont = document.createElement('DIV') as HTMLDivElement;
     imgCont.classList.add('img-container', 'scroll', `${i < columns * firstNumberRows ? 'active' : undefined}`, 'cursor-pointer');
 
-    const overlayContent = document.createElement('DIV') as HTMLDivElement;
-    overlayContent.classList.add('overlay-content');
+    imgCont.onclick = () => openModal(result);
 
-    const overlayB = document.createElement('DIV') as HTMLDivElement;
-    overlayB.classList.add('overlay-bottom');
-    /*overlayB.innerHTML = `
-        <div class="btns-container">
-            <a target="_blank" href="${result.largeImageURL}" class="text-fourth text-medium pointer flex items-center justify-center mb-2">Full Size <span class="material-symbols-outlined text-fourth icon-download">download</span></a>
-
-            <a target="_blank" href="${result.webformatURL}" class="text-fourth text-medium pointer flex items-center justify-center mb-2">Medium Size <span class="material-symbols-outlined text-fourth icon-download">download</span></a>
-
-            <a target="_blank" href="${result.previewURL}" class="text-fourth text-medium pointer flex items-center justify-center mb-2">Small Size <span class="material-symbols-outlined text-fourth icon-download">download</span></a>
-        </div>
-    `;*/
-
-    overlayContent.appendChild(overlayB);
+    const overlayHoverGradient = document.createElement('DIV') as HTMLDivElement;
+    overlayHoverGradient.classList.add('hover-gradient');
 
     const imgEle = document.createElement('IMG') as HTMLImageElement;
     imgEle.src = result.webformatURL;
@@ -239,7 +220,7 @@ export function showImages(i: number) {
     imgEle.classList.add('w-full', 'h-full');
 
     imgCont.appendChild(imgEle);
-    imgCont.appendChild(overlayContent);
+    imgCont.appendChild(overlayHoverGradient);
     column.appendChild(imgCont);
 
     if(galleryContainer.childNodes.length !== columns) galleryContainer.appendChild(column);
@@ -269,8 +250,6 @@ export function getColumns(isFirstLoad: boolean) {
 
 function cleanGallery() {
     cleanHtml(galleryContainer);
-
-    //ALL_COLUMNS.forEach((e: any) => cleanHtml(e));
     
     for(let i = 1; i <= columns; i++) {
         const column = document.querySelector(`.column-${countColumns + 1}`) as HTMLDivElement;
@@ -326,4 +305,53 @@ export function handlePage(typeChange: 'prev' | 'next') {
     numberInput.value = currentPage.toString();
 
     fetchImg();
+}
+
+//================================= MODAL ==========
+function openModal(imgData: any) {
+    body[0].classList.add('modal-active');
+    modalContainer.classList.replace('hidden', 'flex');
+
+    imgModal.src = imgData.webformatURL;
+    imgModal.alt = `img-${search}`;
+
+    btnCloseModal.onclick = (e) => closeModal(e);
+
+    dropdownTop.innerHTML = `
+        <ul class="py-2">
+            <li>
+                <a target="_blank" href="${imgData.largeImageURL}" class="download-btns">
+                    Full Size
+
+                    <span class="material-symbols-outlined icon-download">download</span>
+                </a>
+             </li>
+             <li>
+                 <a target="_blank" href="${imgData.webformatURL}" class="download-btns">
+                    Medium Size
+
+                     <span class="material-symbols-outlined icon-download">download</span>
+                </a>
+            </li>
+            <li>
+                <a target="_blank" href="${imgData.previewURL}" class="download-btns">
+                    Small Size
+
+                    <span class="material-symbols-outlined icon-download">download</span>
+                </a>
+            </li>
+        </ul>
+    `
+}
+
+export function closeModal(e: MouseEvent) {
+    const target = e.target as HTMLElement;
+
+    if(target.id.includes('modal-container') || target.id.includes('btn-close-modal') || target.classList.contains('close')) {
+        body[0].classList.remove('modal-active');
+        modalContainer.classList.replace('flex', 'hidden');
+        imgModal.src = '';
+        dropdownTop.classList.remove('flex');
+        dropdownTop.classList.add('hidden');
+    }
 }

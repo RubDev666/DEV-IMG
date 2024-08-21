@@ -7,3 +7,17 @@
         @apply bg-logo uppercase text-white rounded-3xl py-1 px-4 tracking-widest text-2xl cursor-pointer
     }
 }
+
+@layer utilities {
+    .all-center {
+        @apply flex items-center justify-center
+    }
+
+    .center-between {
+        @apply flex items-center justify-between
+    }
+
+    .img-modal-size {
+        @apply max-h-[60vh] xl:max-h-[70vh]   
+    }
+}

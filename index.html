@@ -6,7 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="description" content="Thousands of free images that you can use in your web projects">
     <link rel="shortcut icon" type="image/x-icon" href="./favicon.ico" />
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
     <link rel="stylesheet" href="./src/css/tailwind.css">
     <link rel="stylesheet" href="./src/css/globals.css">
     <title>Dev-Img</title>
@@ -17,35 +18,41 @@
         <div class="bg-second w-full py-3 px-7 flex items-center justify-start gap-4">
             <span class="m-0 text-logo font-normal uppercase logo-font">Dev&lt;img/&gt;</span>
 
-            <button id="btn-mobile-search" class="cursor-pointer flex items-center justify-center bg-first hover:bg-third rounded-full p-2 transition-colors duration-200 min-[480px]:hidden">
+            <button id="btn-mobile-search"
+                class="cursor-pointer all-center bg-first hover:bg-third rounded-full p-2 transition-colors duration-200 min-[480px]:hidden">
                 <span class="material-symbols-outlined text-fourth font-bold">search</span>
             </button>
-    
-            <div id="input-header-container" class="bg-second px-7 h-full flex items-center justify-between absolute w-full gap-5 left-0 min-[480px]:relative overflow-hidden min-[480px]:h-[40px] sm:w-1/2">
-                <form id="form-header" class="w-full bg-white flex rounded-full items-center justify-center px-5 py-1 min-[480px]:absolute left-0">
-                    <button data-set="header" type="submit" class="mr-2 cursor-pointer flex items-center justify-center">
+
+            <div id="input-header-container"
+                class="bg-second px-7 h-full center-between absolute w-full gap-5 left-0 min-[480px]:relative overflow-hidden min-[480px]:h-[40px] sm:w-1/2">
+                <form id="form-header"
+                    class="w-full bg-white all-center rounded-full px-5 py-1 min-[480px]:absolute left-0">
+                    <button data-set="header" type="submit"
+                        class="mr-2 cursor-pointer all-center">
                         <span id="icono-header" class="material-symbols-outlined text-logo font-semibold">search</span>
                     </button>
-            
+
                     <input type="text" class="outline-none w-full p-1" placeholder="Enter a word" id="input-header">
                 </form>
-            
-                <button id="btn-mobile-close" class="min-[480px]:hidden cursor-pointer flex items-center justify-center bg-first hover:bg-third rounded-full p-2 transition-colors duration-200">
+
+                <button id="btn-mobile-close"
+                    class="min-[480px]:hidden cursor-pointer all-center bg-first hover:bg-third rounded-full p-2 transition-colors duration-200">
                     <span class="material-symbols-outlined text-fourth font-bold">close</span>
                 </button>
             </div>
         </div>
     </header>
 
-    <main class="w-full flex items-center justify-center flex-col text-center px-7 py-14 lg:py-20 bg-no-repeat bg-center bg-cover">
+    <main class="w-full all-center flex-col text-center px-7 py-14 lg:py-20 bg-no-repeat bg-center bg-cover">
         <h1 class="text-white mb-9 text-2xl lg:text-3xl font-bold">Incredible free images to download.</h1>
 
         <form id="form-main" class="buscador sm:max-w-lg lg:max-w-3xl mx-auto">
-            <label for="input-main" class="text-white font-semibold lg:text-xl">Feel free to develop. We offer you free images that
+            <label for="input-main" class="text-white font-semibold lg:text-xl">Feel free to develop. We offer you free
+                images that
                 you can use in your projects.</label>
 
-            <div class="flex bg-white rounded-full items-center justify-center px-5 py-1 mt-4 mb-4">
-                <button data-set="main" type="submit" class="mr-2 cursor-pointer flex items-center justify-center">
+            <div class="all-center bg-white rounded-full px-5 py-1 mt-4 mb-4">
+                <button data-set="main" type="submit" class="mr-2 cursor-pointer all-center">
                     <span class="material-symbols-outlined text-logo font-bold">search</span>
                 </button>
 
@@ -57,7 +64,8 @@
     </main>
 
     <section id="search-title" class="py-10 lg:py-14 px-6 overflow-hidden relative mb-8 bg-no-repeat">
-        <h2 class="font-bold m-0 text-2xl leading-tight sm:text-3xl text-fourth text-center">Do a search to show results</h2>
+        <h2 class="font-bold m-0 text-2xl leading-tight sm:text-3xl text-fourth text-center">Do a search to show results
+        </h2>
     </section>
 
     <section id="results-container" class="hidden w-full mb-4">
@@ -75,8 +83,9 @@
             <p class="logo-font text-white uppercase tracking-widest text-lg lg:text-2xl hidden">No more images</p>
         </div>
 
-        <div class="pagination-controls flex items-center justify-between lg:gap-2">
-            <button id="prev" class="cursor-pointer transition-colors duration-300 ease-in-out hover:bg-third flex items-center justify-center rounded-full p-1">
+        <div class="pagination-controls center-between lg:gap-2">
+            <button id="prev"
+                class="cursor-pointer transition-colors duration-300 ease-in-out hover:bg-third all-center rounded-full p-1">
                 <span class="material-symbols-outlined text-fourth lg:text-[30px]">chevron_left</span>
             </button>
 
@@ -84,24 +93,52 @@
                 <input type="number" id="number-input" value="1" class="w-7 mr-3 text-center outline-none">
 
                 <p class="text-fourth">/13</p>
-            </form> 
+            </form>
 
-            <button id="next" class="cursor-pointer transition-colors duration-300 ease-in-out hover:bg-third flex items-center justify-center rounded-full p-1">
+            <button id="next"
+                class="cursor-pointer transition-colors duration-300 ease-in-out hover:bg-third all-center rounded-full p-1">
                 <span class="material-symbols-outlined text-fourth lg:text-[30px]">chevron_right</span>
             </button>
         </div>
     </section>
- 
+
     <footer class="w-full">
         <div class="w-full py-2 px-7 mb-5">
             <h4 class="text-fourth font-bold mb-2">Free elements that you can use wherever you want.</h4>
 
-            <p class="text-third text-sm">Website created with the <span class="text-fourth font-medium">Pixabay</span> API for practical purposes. Visit the official <a href="https://pixabay.com" target="_blank" class="text-fourth font-medium hover:text-logo transition-colors duration-200">Pixabay</a> site for more
+            <p class="text-third text-sm">Website created with the <span class="text-fourth font-medium">Pixabay</span>
+                API for practical purposes. Visit the official <a href="https://pixabay.com" target="_blank"
+                    class="text-fourth font-medium hover:text-logo transition-colors duration-200">Pixabay</a> site for
+                more
                 images and multimedia elements.</p>
         </div>
 
         <p class="bg-third text-center text-first p-3 font-semibold">Created by © RubDeveloper 2024</p>
     </footer>
+
+    <div id="modal-container" class="w-full fixed top-[69px] hidden bg-[rgba(0,0,0,0.9)] items-center justify-center flex-col xl:flex-row py-7 gap-4">
+        <button id="btn-close-modal" class="absolute right-4 top-4 all-center">
+            <span class="material-symbols-outlined close text-logo font-extrabold text-[30px] xl:text-[40px]">
+                close
+            </span>
+        </button>
+        
+        <div id="img-modal-container" class="w-auto img-modal-size bg-third">
+            <img id="img-modal" src="" alt="" class="img-modal-size" loading="lazy">
+        </div>
+
+        <div class="relative w-full xl:w-[200px] all-center xl:self-start xl:mt-[100px]">
+            <button id="dropdownTopButton" class="btn-main relative all-center logo-font" type="button">
+                Download
+
+                <span class="material-symbols-outlined origin-center rotate-180 xl:rotate-0">
+                    arrow_drop_down
+                </span>
+            </button>
+            
+            <div id="dropdownTop" class="absolute bottom-[110%] xl:bottom-[auto] xl:top-[110%] p-2 z-10 hidden xl:flex bg-second rounded-lg shadow text-white"></div>
+        </div>
+    </div>
 
     <script src="./src/ts/index.ts" type="module"></script>
 </body>

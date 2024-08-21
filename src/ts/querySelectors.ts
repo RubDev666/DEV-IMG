@@ -1,3 +1,5 @@
+export const body = document.getElementsByTagName('BODY') as HTMLCollectionOf<HTMLBodyElement>;
+
 //================================ HEADER =========================
 export const formHeaderContainer = document.querySelector('#input-header-container') as HTMLFormElement;
 export const btnSearch = document.querySelector('#btn-mobile-search') as HTMLButtonElement;
@@ -19,14 +21,6 @@ export const titleResults = document.querySelector('#results-container H3') as H
 //=========================== GALLERY ==================
 export const galleryContainer = document.querySelector('#gallery') as HTMLDivElement;
 
-/*
-export const column1 = document.querySelector('.column-1') as HTMLDivElement;
-export const column2 = document.querySelector('.column-2') as HTMLDivElement;
-export const column3 = document.querySelector('.column-3') as HTMLDivElement;
-export const column4 = document.querySelector('.column-4') as HTMLDivElement;
-export const column5 = document.querySelector('.column-5') as HTMLDivElement;
-*/
-
 //============================ PAGINATION =====================
 export const paginationCont = document.querySelector('#pagination') as HTMLElement;
 export const numberInput = document.querySelector('#number-input') as HTMLInputElement;
@@ -41,3 +35,10 @@ export const noMore = document.querySelector('.buttons-status-page P') as HTMLEl
 export const totalResultsP = document.querySelector('#pagination .total-results') as HTMLElement;
 
 export const formPage =  document.querySelector('#number-page') as HTMLFormElement;
+
+//======================= MODAL ==================
+export const modalContainer = document.querySelector('#modal-container') as HTMLDivElement;
+export const dropdownTopBtn = document.querySelector('#dropdownTopButton') as HTMLButtonElement;
+export const dropdownTop = document.querySelector('#dropdownTop') as HTMLDivElement;
+export const imgModal = document.querySelector('#img-modal') as HTMLImageElement;
+export const btnCloseModal = document.querySelector('#btn-close-modal') as HTMLBRElement;
