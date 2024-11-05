@@ -19,5 +19,5 @@
     "noUnusedParameters": true,
     "noFallthroughCasesInSwitch": true
   },
-  "include": ["src"]
+  "include": ["src", "tests/unit/api/api-succes.test.ts", "tests/unit/api/api-errors.test.ts"]
 }
