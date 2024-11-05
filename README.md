@@ -1,5 +1,5 @@
 # DEV-IMG
-Vite, Tailwindcss, Typescript
+Vite, Tailwindcss, Typescript y testing con vitest
 
 - Typescript
 - Vite
