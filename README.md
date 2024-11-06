@@ -1,16 +1,16 @@
 # DEV-IMG
-Vite, Tailwindcss, Typescript y testing con vitest
+Vite, Tailwindcss, Typescript and testing with vitest
 
 - Typescript
 - Vite
 - Tailwindcss
 - Pixabay API
 
-## Caracteristicas del proyecto
+## Project features
 
-- Busqueda de imagenes gratuitas usando la API de pixabay
-- Manipulacion del DOM
-- Efecto scroll para la galeria sin librerias
-- Layout estilo masonry
-- Modal para mostrar y descargar imagenes
-- Diseño responsive
+- Search for free images using the Pixabay API
+- DOM Manipulation
+- Scroll effect for gallery
+- Masonry layout
+- Modal to show and download images
+- Responsive design
