@@ -1,6 +1,6 @@
 import {fetchStatus} from "../utils/globalVariables.js";
 import { cleanHtml } from "../utils/cleaHtml.js";
-import { adjustWindow, restoreWindow } from "../utils/adjustWindow.js";
+import { adjustWindow } from "../utils/adjustWindow.js";
 
 export const openModal = (imgData: any) => {
     const body = document.querySelector('body') as HTMLBodyElement;
@@ -51,7 +51,7 @@ export const openModal = (imgData: any) => {
         dropdownTop.appendChild(ulData);
     })
 
-    adjustWindow();
+    adjustWindow('open');
 
     body.classList.add('modal-active');
     modalContainer.classList.replace('hidden', 'flex');
@@ -66,7 +66,7 @@ export const closeModal = (e: MouseEvent) => {
     const target = e.target as HTMLElement;
  
     if(target.id.includes('modal-container') || target.id.includes('btn-close-modal') || target.classList.contains('close')) {
-        restoreWindow();
+        adjustWindow('close');
         
         body.classList.remove('modal-active');
         modalContainer.classList.replace('flex', 'hidden');

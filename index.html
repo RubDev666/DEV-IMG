@@ -124,20 +124,22 @@
                 </span>
             </button>
             
-            <div id="img-modal-container" class="w-auto img-modal-size bg-third">
-                <img id="img-modal" src="" alt="" class="img-modal-size" loading="lazy">
-            </div>
-    
-            <div class="relative w-full xl:w-[200px] all-center xl:self-start xl:mt-[100px]">
-                <button id="dropdownTopButton" class="btn-main relative all-center logo-font" type="button">
-                    Download
-    
-                    <span class="material-symbols-outlined origin-center rotate-180 xl:rotate-0">
-                        arrow_drop_down
-                    </span>
-                </button>
-                
-                <div id="dropdownTop" class="absolute bottom-[110%] xl:bottom-[auto] xl:top-[110%] p-2 z-10 hidden xl:flex bg-second rounded-lg shadow text-white"></div>
+            <div class="bg-container flex flex-col gap-4 xl:bg-second xl:flex-row xl:p-7 rounded-xl">
+                <div id="img-modal-container" class="w-auto img-modal-size bg-third">
+                    <img id="img-modal" src="" alt="" class="img-modal-size" loading="lazy">
+                </div>
+        
+                <div class="relative w-full xl:w-[200px] all-center xl:self-start">
+                    <button id="dropdownTopButton" class="btn-main relative all-center logo-font" type="button">
+                        Download
+        
+                        <span class="material-symbols-outlined origin-center rotate-180 xl:rotate-0">
+                            arrow_drop_down
+                        </span>
+                    </button>
+                    
+                    <div id="dropdownTop" class="absolute bottom-[110%] xl:bottom-[auto] xl:top-[110%] p-2 z-10 hidden xl:flex bg-second rounded-lg shadow xl:shadow-none text-white xl:w-full"></div>
+                </div>
             </div>
         </div>
     </div>

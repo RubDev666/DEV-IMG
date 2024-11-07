@@ -1,20 +1,27 @@
-import {it, describe, beforeAll, expect} from 'vitest';
+import {it, describe, beforeAll, expect, vi} from 'vitest';
 import {userEvent} from '@vitest/browser/context';
 
 import { fetchStatus } from '../../../src/app/utils/globalVariables.js';
 import { openModal } from '../../../src/app/functions/modal.js';
+import { adjustWindow } from '../../../src/app/utils/adjustWindow.js';
+
+vi.mock('../../../src/app/utils/adjustWindow.js', {spy: true});
 
 beforeAll(() => {
     document.body.innerHTML = `
-        <div id="img-modal-container" class="w-auto img-modal-size bg-third hidden">
-            <img id="img-modal" src="" alt="" class="img-modal-size" loading="lazy">
+        <header></header>
 
-            <button id="btn-close-modal">x</button>
+        <div id="adjust-window">
+            <div id="img-modal-container" class="w-auto img-modal-size bg-third hidden">
+                <img id="img-modal" src="" alt="" class="img-modal-size" loading="lazy">
+
+                <button id="btn-close-modal">x</button>
+            </div>
+
+            <div id="dropdownTop" class="absolute bottom-[110%] xl:bottom-[auto] xl:top-[110%] p-2 z-10 hidden xl:flex bg-second rounded-lg shadow text-white"></div>
+
+            <div id="modal-container" class="hidden"></div>        
         </div>
-
-        <div id="dropdownTop" class="absolute bottom-[110%] xl:bottom-[auto] xl:top-[110%] p-2 z-10 hidden xl:flex bg-second rounded-lg shadow text-white"></div>
-
-        <div id="modal-container" class="hidden"></div>
     `;
 
     fetchStatus.search = 'some-search';
@@ -49,6 +56,10 @@ describe('"openModal()"', () =>{
         expect(dropdownTop.children.length).toBe(1);
     })
 
+    it('adjustWindow("open") has been called', () => {
+        expect(adjustWindow).toHaveBeenCalledWith('open');
+    })
+
     it('Added "modal-active" class to "body"', () => {
         const body = document.querySelector('body') as HTMLBodyElement;
 
@@ -67,6 +78,10 @@ describe('closeModal()', () => {
         const btnCloseModal = document.querySelector('#btn-close-modal') as HTMLBRElement;
 
         await userEvent.click(btnCloseModal);
+    })
+
+    it('adjustWindow("close") has been called', () => {
+        expect(adjustWindow).toHaveBeenCalledWith('open');
     })
 
     it('deleted "modal-active" class to "body"', () => {

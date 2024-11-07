@@ -165,4 +165,12 @@ body.modal-active {
     #gallery {
         grid-template-columns: repeat(5, 1fr);
     }
+
+    #dropdownTop ul {
+        width: 100%;
+    }
+
+    .download-btns {
+        justify-content: space-between;
+    }
 }
