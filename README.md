@@ -3,8 +3,10 @@ Vite, Tailwindcss, Typescript and testing with vitest
 
 - Typescript
 - Vite
+- Vitest (for testing)
 - Tailwindcss
 - Pixabay API
+- PWA
 
 ## Project features
 
@@ -14,3 +16,4 @@ Vite, Tailwindcss, Typescript and testing with vitest
 - Masonry layout
 - Modal to show and download images
 - Responsive design
+- PWA
